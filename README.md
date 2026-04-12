@@ -1,62 +1,82 @@
-# 🌐 Default Domain Landing Page
+# ⚡ ServerPulse
 
-## 🇬🇧 English
+## 🌐 English
 
-A modern, animated and lightweight default landing page for web servers and newly configured domains.
+**ServerPulse** is a modern, animated default landing page for web servers and hosting environments.
 
-This page appears when a domain is successfully pointed to the server but no website has been deployed yet.
+It acts as the first visual layer when a domain is successfully connected to a server but no website has been deployed yet.
 
-It provides a **clean, premium first impression** while confirming that everything is working correctly.
+It gives every server a **live, modern and premium identity from the first request.**
 
-### ⚡ Features
+---
 
-- 🎨 Modern glassmorphism UI
-- 🌗 Light / Dark mode toggle
+### ✨ Features
+
+- 🎨 Glassmorphism modern UI
+- 🌗 Light / Dark mode switch
 - 🌈 Animated background effects
-- 💬 Dynamic loading messages
+- 💬 Dynamic status messages
 - 📱 Fully responsive design
-- ⚡ Lightweight and fast
-- 🧩 Works with any server (Nginx, Apache, FrankenPHP)
+- ⚡ Ultra lightweight & fast loading
+- 🧩 Works with Nginx / Apache / FrankenPHP / any stack
 
-### 🚀 Purpose
+---
+
+### 🚀 Use Cases
 
 - Default server landing page
-- Hosting verification page
-- Domain configuration confirmation
-- Staging / development placeholder
+- Domain setup verification
+- Hosting environment placeholder
+- Staging & development entry page
+
+---
+
+### ⚡ Philosophy
+
+> “Every server should feel alive from the first request.”
 
 ---
 
 ## 🇷🇴 Română
 
-O pagină modernă, animată și ușoară pentru servere web și domenii nou configurate.
+**ServerPulse** este o pagină modernă, animată, pentru servere web și medii de hosting.
 
-Această pagină apare atunci când un domeniu este conectat corect la server, dar nu există încă un website instalat.
+Aceasta apare atunci când un domeniu este conectat corect la server, dar nu există încă un site instalat.
 
-Oferă o **primă impresie profesională și curată**, confirmând în același timp că serverul funcționează corect.
-
-### ⚡ Funcționalități
-
-- 🎨 Interfață modernă tip glassmorphism
-- 🌗 Mod light / dark
-- 🌈 Efecte animate de fundal
-- 💬 Mesaje dinamice de încărcare
-- 📱 Design responsive
-- ⚡ Foarte rapid și optimizat
-- 🧩 Compatibil cu orice server (Nginx, Apache, FrankenPHP)
-
-### 🚀 Scop
-
-- Pagina default pentru servere
-- Verificare hosting
-- Confirmare configurare domeniu
-- Placeholder pentru proiecte în dezvoltare
+Oferă fiecărui server o **identitate modernă, vie și profesională încă de la primul request.**
 
 ---
 
-## 🛠️ How it works / Cum funcționează
+### ✨ Funcționalități
 
-Just upload the file as your default `index.html` in your web root.
+- 🎨 Interfață modernă glassmorphism
+- 🌗 Switch light / dark mode
+- 🌈 Efecte animate de fundal
+- 💬 Mesaje dinamice de stare
+- 📱 Design complet responsive
+- ⚡ Foarte rapid și optimizat
+- 🧩 Compatibil cu Nginx / Apache / FrankenPHP / orice stack
+
+---
+
+### 🚀 Utilizare
+
+- Pagina default pentru server
+- Verificare configurare domeniu
+- Placeholder pentru hosting
+- Pagină de start pentru medii de test
+
+---
+
+### ⚡ Filosofie
+
+> “Orice server ar trebui să fie viu din primul request.”
+
+---
+
+## 🛠️ Install
+
+Upload the file as your default entry page:
 
 ```bash
 /var/www/html/index.html
