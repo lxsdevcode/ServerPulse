@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>Domain Not Configured</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg1: #eff6ff;
+      --bg2: #f0f9ff;
+      --bg3: #f5f3ff;
+
+      --accent-blue: #3b82f6;
+      --accent-indigo: #6366f1;
+      --accent-cyan: #06b6d4;
+
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-border: rgba(15, 23, 42, 0.06);
+      --card-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+
+      --text-main: #0f172a;
+      --text-muted: #6b7280;
+      --chip-bg: rgba(255, 255, 255, 0.9);
+      --chip-border: rgba(15, 23, 42, 0.08);
+      --footer-chip-bg: rgba(255, 255, 255, 0.8);
+
+      --badge-bg: #dbeafe;
+      --badge-text: #1e40af;
+      --badge-border: #93c5fd;
+    }
+
+    :root[data-theme="dark"] {
+      --bg1: #020617;
+      --bg2: #020617;
+      --bg3: #020617;
+
+      --card-bg: rgba(15, 23, 42, 0.96);
+      --card-border: rgba(148, 163, 184, 0.28);
+      --card-shadow: 0 26px 70px rgba(0, 0, 0, 0.9);
+
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --chip-bg: rgba(15, 23, 42, 0.96);
+      --chip-border: rgba(148, 163, 184, 0.5);
+      --footer-chip-bg: rgba(15, 23, 42, 0.96);
+
+      --badge-bg: rgba(30, 64, 175, 0.25);
+      --badge-text: #93c5fd;
+      --badge-border: rgba(147, 197, 253, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-main);
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg3) 100%);
+    }
+
+    .spot {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(130px);
+      opacity: 0.28;
+      animation: float 22s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .spot.a {
+      width: 450px; height: 450px;
+      background: var(--accent-blue);
+      top: -5%; left: 6%;
+      animation-delay: 0s;
+    }
+    .spot.b {
+      width: 370px; height: 370px;
+      background: var(--accent-indigo);
+      bottom: 8%; right: 8%;
+      animation-delay: 3s;
+    }
+    .spot.c {
+      width: 300px; height: 300px;
+      background: var(--accent-cyan);
+      top: 55%; left: 50%;
+      animation-delay: 6s;
+    }
+    @keyframes float {
+      0%   { transform: translateY(0) scale(1); }
+      50%  { transform: translateY(-30px) scale(1.04); opacity: 0.38; }
+      100% { transform: translateY(20px) scale(1.07); opacity: 0.22; }
+    }
+
+    /* theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px; right: 24px;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    :root[data-theme="dark"] .theme-toggle {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.4);
+      box-shadow: 0 0 18px rgba(255,255,255,0.04);
+    }
+    .theme-icon { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; color: var(--text-main); opacity: 0.5; transition: opacity 0.2s; }
+    :root[data-theme="light"] .theme-icon.sun,
+    :root[data-theme="dark"]  .theme-icon.moon { opacity: 1; }
+    .theme-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.6; }
+
+    /* card */
+    .card {
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      padding: 48px 38px 36px;
+      max-width: 480px;
+      width: 100%;
+      border: 1px solid var(--card-border);
+    }
+
+    /* DNS icon */
+    .icon-wrap {
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: center;
+    }
+    .icon-wrap svg {
+      width: 52px;
+      height: 52px;
+      animation: spin-slow 12s linear infinite;
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      border: 1px solid var(--badge-border);
+      margin-bottom: 16px;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.2; }
+    }
+
+    .title { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+    .subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 26px; line-height: 1.6; }
+
+    .host {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+      font-size: 13px;
+      padding: 6px 10px;
+      background: var(--chip-bg);
+      border-radius: 999px;
+      border: 1px solid var(--chip-border);
+      display: inline-block;
+      margin-bottom: 24px;
+      color: var(--text-main);
+    }
+
+    .loader { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; opacity: 0.4; animation: pulse 1.6s infinite; }
+    .dot:nth-child(1) { background: var(--accent-blue); }
+    .dot:nth-child(2) { background: var(--accent-indigo); animation-delay: 0.2s; }
+    .dot:nth-child(3) { background: var(--accent-cyan);   animation-delay: 0.4s; }
+    @keyframes pulse {
+      0%, 80%, 100% { opacity: 0.35; transform: scale(1); }
+      40%            { opacity: 1;    transform: scale(1.4); }
+    }
+
+    .message { font-size: 15px; font-weight: 500; transition: opacity 0.6s ease; min-height: 24px; margin-bottom: 8px; }
+    .footer { margin-top: 16px; font-size: 12px; color: var(--text-muted); }
+    .footer code { background: var(--footer-chip-bg); border-radius: 4px; padding: 0 4px; font-size: 11px; }
+    code { background: rgba(0,0,0,0.03); border-radius: 4px; padding: 0 4px; font-size: 12px; }
+    :root[data-theme="dark"] code { background: rgba(15,23,42,0.9); }
+
+    @media (max-width: 480px) {
+      .card { padding: 32px 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="spot a"></div>
+  <div class="spot b"></div>
+  <div class="spot c"></div>
+
+  <div class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <span class="theme-icon sun">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"></circle>
+        <g stroke-linecap="round">
+          <line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </g>
+      </svg>
+    </span>
+    <span class="theme-icon moon">
+      <svg viewBox="0 0 24 24"><path d="M20 14.5A7.5 7.5 0 0 1 10.5 5a7.5 7.5 0 1 0 9.5 9.5Z" /></svg>
+    </span>
+  </div>
+
+  <main class="card">
+    <div class="icon-wrap">
+      <!-- globe/DNS icon -->
+      <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="26" cy="26" r="19" stroke="url(#blueGrad)" stroke-width="2.2" fill="none" opacity="0.25"/>
+        <circle cx="26" cy="26" r="19" stroke="url(#blueGrad)" stroke-width="2.2" fill="none" stroke-dasharray="6 4"/>
+        <ellipse cx="26" cy="26" rx="8" ry="19" stroke="url(#blueGrad)" stroke-width="2" fill="none"/>
+        <line x1="7.5"  y1="26" x2="44.5" y2="26" stroke="url(#blueGrad)" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="10"   y1="18" x2="42"   y2="18" stroke="url(#blueGrad)" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+        <line x1="10"   y1="34" x2="42"   y2="34" stroke="url(#blueGrad)" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+        <defs>
+          <linearGradient id="blueGrad" x1="7" y1="7" x2="45" y2="45" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#3b82f6"/>
+            <stop offset="1" stop-color="#06b6d4"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Not configured
+    </div>
+
+    <h1 class="title">This domain is not bound to any site</h1>
+    <p class="subtitle">
+      The domain is pointing to this server, but it hasn't been assigned
+      to any virtual host or website yet.
+    </p>
+
+    <div class="host" id="host-value">localhost</div>
+
+    <div class="loader">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="message" id="message">DNS is resolving, but no site is configured here.</div>
+    <div class="footer">
+      If you manage this server, add a virtual host for <code id="footer-host">this domain</code> in your panel or web server config.
+    </div>
+  </main>
+
+  <script>
+    const messages = [
+      "DNS is resolving, but no site is configured here.",
+      "Domain points here, but nothing is set up yet.",
+      "No virtual host found for this domain.",
+      "The server received your request — no site to serve.",
+      "Almost there — just needs a site assignment.",
+      "Check your panel and bind this domain to a site.",
+      "Server is up; domain configuration is missing.",
+    ];
+    let index = 0;
+    const msgEl = document.getElementById("message");
+    function cycle() {
+      msgEl.style.opacity = 0;
+      setTimeout(() => {
+        index = (index + 1) % messages.length;
+        msgEl.textContent = messages[index];
+        msgEl.style.opacity = 1;
+      }, 600);
+    }
+    setInterval(cycle, 4000);
+
+    (function () {
+      try {
+        var host = window.location.host || "";
+        if (host) host = host.split(",")[0].trim();
+        if (!host) host = "localhost";
+        document.getElementById("host-value").textContent = host;
+        var fh = document.getElementById("footer-host");
+        if (fh) fh.textContent = host;
+      } catch (e) {}
+    })();
+
+    (function () {
+      const root = document.documentElement;
+      const toggle = document.getElementById("theme-toggle");
+      function applyTheme(t) { root.setAttribute("data-theme", t); }
+      try {
+        const s = localStorage.getItem("placeholder-theme");
+        if (s === "dark" || s === "light") applyTheme(s);
+        else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) applyTheme("dark");
+      } catch (e) {}
+      toggle.addEventListener("click", function () {
+        const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        applyTheme(next);
+        try { localStorage.setItem("placeholder-theme", next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>
