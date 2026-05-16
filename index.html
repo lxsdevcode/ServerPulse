@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -6,15 +5,14 @@
   <title>ServerPulse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-     
     :root {
-      --bg1: #f9fafb;
+      --bg1: #f0fdf4;
       --bg2: #fefce8;
-      --bg3: #e0f2fe;
+      --bg3: #ecfeff;
 
-      --accent-green: #22c55e;
+      --accent-green:  #22c55e;
       --accent-yellow: #eab308;
-      --accent-orange: #f97316;
+      --accent-teal:   #14b8a6;
 
       --card-bg: rgba(255, 255, 255, 0.9);
       --card-border: rgba(15, 23, 42, 0.06);
@@ -25,6 +23,10 @@
       --chip-bg: rgba(255, 255, 255, 0.9);
       --chip-border: rgba(15, 23, 42, 0.08);
       --footer-chip-bg: rgba(255, 255, 255, 0.8);
+
+      --badge-bg: #dcfce7;
+      --badge-text: #166534;
+      --badge-border: #86efac;
     }
 
     :root[data-theme="dark"] {
@@ -41,6 +43,10 @@
       --chip-bg: rgba(15, 23, 42, 0.96);
       --chip-border: rgba(148, 163, 184, 0.5);
       --footer-chip-bg: rgba(15, 23, 42, 0.96);
+
+      --badge-bg: rgba(22, 101, 52, 0.25);
+      --badge-text: #86efac;
+      --badge-border: rgba(134, 239, 172, 0.35);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -58,7 +64,6 @@
       background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg3) 100%);
     }
 
-     
     .spot {
       position: absolute;
       border-radius: 50%;
@@ -67,35 +72,34 @@
       animation: float 18s ease-in-out infinite alternate;
       pointer-events: none;
     }
-    .spot.green {
+    .spot.a {
       width: 420px; height: 420px;
       background: var(--accent-green);
       top: 5%; left: 10%;
       animation-delay: 0s;
     }
-    .spot.yellow {
+    .spot.b {
       width: 380px; height: 380px;
       background: var(--accent-yellow);
       bottom: 10%; right: 10%;
       animation-delay: 2s;
     }
-    .spot.orange {
+    .spot.c {
       width: 320px; height: 320px;
-      background: var(--accent-orange);
+      background: var(--accent-teal);
       top: 60%; left: 50%;
       animation-delay: 4s;
     }
     @keyframes float {
-      0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-30px) scale(1.03); opacity: 0.45; }
+      0%   { transform: translateY(0) scale(1); }
+      50%  { transform: translateY(-30px) scale(1.03); opacity: 0.45; }
       100% { transform: translateY(20px) scale(1.08); opacity: 0.3; }
     }
 
-     
+    /* theme toggle */
     .theme-toggle {
       position: fixed;
-      top: 20px;
-      right: 24px;
+      top: 20px; right: 24px;
       z-index: 10;
       display: inline-flex;
       align-items: center;
@@ -106,40 +110,20 @@
       background: rgba(255, 255, 255, 0.8);
       cursor: pointer;
       user-select: none;
-      transition: background 0.3s ease, border-color 0.3s ease;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
     :root[data-theme="dark"] .theme-toggle {
       background: rgba(15, 23, 42, 0.9);
       border-color: rgba(148, 163, 184, 0.4);
-      box-shadow: 0 0 18px rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0 18px rgba(255,255,255,0.04);
     }
-
-    .theme-icon {
-      width: 18px;
-      height: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-main);
-      opacity: 0.5;
-      transition: opacity 0.2s ease;
-    }
-
+    .theme-icon { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; color: var(--text-main); opacity: 0.5; transition: opacity 0.2s; }
     :root[data-theme="light"] .theme-icon.sun,
-    :root[data-theme="dark"]  .theme-icon.moon {
-      opacity: 1;
-    }
+    :root[data-theme="dark"]  .theme-icon.moon { opacity: 1; }
+    .theme-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.6; }
 
-    .theme-icon svg {
-      width: 100%;
-      height: 100%;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.6;
-    }
-
-     
+    /* card */
     .card {
       position: relative;
       z-index: 1;
@@ -154,18 +138,51 @@
       border: 1px solid var(--card-border);
     }
 
-    .title {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 10px;
+    /* rocket icon */
+    .icon-wrap {
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: center;
+    }
+    .icon-wrap svg {
+      width: 52px;
+      height: 52px;
+      animation: hover-float 3s ease-in-out infinite;
+    }
+    @keyframes hover-float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-7px); }
     }
 
-    .subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 26px;
-      line-height: 1.6;
+    /* badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      border: 1px solid var(--badge-border);
+      margin-bottom: 16px;
     }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.2; }
+    }
+
+    .title { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+    .subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 26px; line-height: 1.6; }
 
     .host {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -179,99 +196,99 @@
       color: var(--text-main);
     }
 
-    .loader {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      opacity: 0.4;
-      animation: pulse 1.6s infinite;
-    }
+    .loader { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; opacity: 0.4; animation: pulse 1.6s infinite; }
     .dot:nth-child(1) { background: var(--accent-yellow); }
-    .dot:nth-child(2) { background: var(--accent-orange); animation-delay: 0.2s; }
-    .dot:nth-child(3) { background: var(--accent-green); animation-delay: 0.4s; }
-
+    .dot:nth-child(2) { background: var(--accent-teal);   animation-delay: 0.2s; }
+    .dot:nth-child(3) { background: var(--accent-green);  animation-delay: 0.4s; }
     @keyframes pulse {
       0%, 80%, 100% { opacity: 0.35; transform: scale(1); }
-      40% { opacity: 1; transform: scale(1.4); }
+      40%            { opacity: 1;    transform: scale(1.4); }
     }
 
-    .message {
-      font-size: 15px;
-      font-weight: 500;
-      transition: opacity 0.6s ease;
-      min-height: 24px;
-      margin-bottom: 8px;
-    }
+    .message { font-size: 15px; font-weight: 500; transition: opacity 0.6s ease; min-height: 24px; margin-bottom: 8px; }
 
-    .footer {
-      margin-top: 16px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .footer code {
-      background: var(--footer-chip-bg);
-      border-radius: 4px;
-      padding: 0 4px;
-      font-size: 11px;
-    }
-
-    code {
-      background: rgba(0,0,0,0.03);
-      border-radius: 4px;
-      padding: 0 4px;
-      font-size: 12px;
-    }
-    :root[data-theme="dark"] code {
-      background: rgba(15,23,42,0.9);
-    }
+    .footer { margin-top: 16px; font-size: 12px; color: var(--text-muted); }
+    .footer code { background: var(--footer-chip-bg); border-radius: 4px; padding: 0 4px; font-size: 11px; }
+    code { background: rgba(0,0,0,0.03); border-radius: 4px; padding: 0 4px; font-size: 12px; }
+    :root[data-theme="dark"] code { background: rgba(15,23,42,0.9); }
 
     @media (max-width: 480px) {
       .card { padding: 32px 20px 24px; }
-      .title { font-size: 19px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="spot green"></div>
-  <div class="spot yellow"></div>
-  <div class="spot orange"></div>
+  <div class="spot a"></div>
+  <div class="spot b"></div>
+  <div class="spot c"></div>
 
   <div class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark theme">
     <span class="theme-icon sun">
-      
       <svg viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="4"></circle>
         <g stroke-linecap="round">
-          <line x1="12" y1="2" x2="12" y2="4"></line>
-          <line x1="12" y1="20" x2="12" y2="22"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="2" y1="12" x2="4" y2="12"></line>
-          <line x1="20" y1="12" x2="22" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          <line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </g>
       </svg>
     </span>
     <span class="theme-icon moon">
-      <svg viewBox="0 0 24 24">
-        <path d="M20 14.5A7.5 7.5 0 0 1 10.5 5a7.5 7.5 0 1 0 9.5 9.5Z" />
-      </svg>
+      <svg viewBox="0 0 24 24"><path d="M20 14.5A7.5 7.5 0 0 1 10.5 5a7.5 7.5 0 1 0 9.5 9.5Z" /></svg>
     </span>
   </div>
 
   <main class="card">
+    <div class="icon-wrap">
+      <!-- rocket -->
+      <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- exhaust flame -->
+        <ellipse cx="26" cy="43" rx="5" ry="3.5" fill="url(#flameGrad)" opacity="0.7">
+          <animate attributeName="ry" values="3.5;5;3;4.5;3.5" dur="0.8s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.7;0.9;0.5;0.8;0.7" dur="0.8s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- body -->
+        <path d="M26 8C26 8 16 18 16 30H36C36 18 26 8 26 8Z" fill="url(#rocketGrad)" />
+        <!-- nose -->
+        <path d="M26 8L21 18H31L26 8Z" fill="url(#noseGrad)" />
+        <!-- window -->
+        <circle cx="26" cy="24" r="4" fill="white" opacity="0.35"/>
+        <circle cx="26" cy="24" r="2.4" fill="url(#windowGrad)" opacity="0.7"/>
+        <!-- fins -->
+        <path d="M16 30L10 38H20L16 30Z" fill="url(#rocketGrad)" opacity="0.7"/>
+        <path d="M36 30L42 38H32L36 30Z" fill="url(#rocketGrad)" opacity="0.7"/>
+        <defs>
+          <linearGradient id="rocketGrad" x1="16" y1="8" x2="36" y2="42" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#22c55e"/>
+            <stop offset="1" stop-color="#14b8a6"/>
+          </linearGradient>
+          <linearGradient id="noseGrad" x1="26" y1="8" x2="26" y2="18" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#86efac"/>
+            <stop offset="1" stop-color="#22c55e"/>
+          </linearGradient>
+          <linearGradient id="windowGrad" x1="22" y1="21" x2="30" y2="27" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#ecfdf5"/>
+            <stop offset="1" stop-color="#6ee7b7"/>
+          </linearGradient>
+          <linearGradient id="flameGrad" x1="21" y1="40" x2="31" y2="46" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fde68a"/>
+            <stop offset="1" stop-color="#f97316"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Coming soon
+    </div>
+
     <h1 class="title">This site is waiting for content</h1>
     <p class="subtitle">
-      Deploy your files when they’re ready to shine.
+      Your server is up and running. Deploy your files when they're ready to shine.
     </p>
 
     <div class="host" id="host-value">localhost</div>
@@ -289,7 +306,6 @@
   </main>
 
   <script>
-    
     const messages = [
       "Coming soon: an awesome project.",
       "A cool project is on the way.",
@@ -298,7 +314,7 @@
       "Building something special behind the scenes...",
       "Almost ready to launch!",
       "Magic is happening... please wait a bit!",
-      "Good things take time — we’re almost there.",
+      "Good things take time — we're almost there.",
       "The future home of something great.",
       "Just polishing the final details...",
       "Something new is loading...",
@@ -318,7 +334,6 @@
     }
     setInterval(cycle, 4000);
 
-    
     (function () {
       try {
         var host = window.location.host || "";
@@ -328,31 +343,19 @@
       } catch (e) {}
     })();
 
-    
     (function () {
       const root = document.documentElement;
       const toggle = document.getElementById("theme-toggle");
-
-      function applyTheme(theme) {
-        root.setAttribute("data-theme", theme);
-      }
-
+      function applyTheme(t) { root.setAttribute("data-theme", t); }
       try {
-        const stored = localStorage.getItem("placeholder-theme");
-        if (stored === "dark" || stored === "light") {
-          applyTheme(stored);
-        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          applyTheme("dark");
-        }
+        const s = localStorage.getItem("placeholder-theme");
+        if (s === "dark" || s === "light") applyTheme(s);
+        else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) applyTheme("dark");
       } catch (e) {}
-
       toggle.addEventListener("click", function () {
-        const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
-        const next = current === "dark" ? "light" : "dark";
+        const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
         applyTheme(next);
-        try {
-          localStorage.setItem("placeholder-theme", next);
-        } catch (e) {}
+        try { localStorage.setItem("placeholder-theme", next); } catch (e) {}
       });
     })();
   </script>
